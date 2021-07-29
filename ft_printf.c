@@ -1,32 +1,68 @@
 #include "ft_printf.h"
-#include <unistd.h>
+#include <stdio.h>
 
-static int	convert_pct(t_printf *st)
+size_t	ft_strlen(const char *s)
 {
-	if (*st->format == '%')
-		return (st->len += ft_putstr("%"));
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (*s)
+		i++;
+	return (i);
 }
 
-int	ft_printf(const char *format, ...)
+void	ft_put_str(const char *s)
 {
-	t_printf	st;
+	write(1, s, ft_strlen(s));
+}
 
-	st = (t_printf){.format = format, .len = 0};
-	va_start(st.ap, format);
-	while (*st.format)
+int	write_char(t_format *pd)
+{
+	char	c;
+
+	c = va_arg(pd->args, int) % 256;
+	pd->len += write(1, &c, 1);
+	return (1);
+}
+
+/*
+*	parser: parses format string into diff specifying fns for formatting
+*	params: 1. string from original printf str 2. arg from printf arg
+*	return: len of parsed string, -1 if error
+*/
+int	format_parser(t_format *pd)
+{
+	if (*pd->s == 'c')
+		write_char(pd);
+	return (1);
+}
+
+// test string ("This is %c", 'a')
+int	ft_printf(const char *s, ...)
+{
+	t_format	pd;
+
+	pd = (t_format){.s = s, .len = 0};
+	va_start(pd.args, s);
+	while (*pd.s)
 	{
-		if (*st.format == '%')
+		if (*pd.s == '%')
 		{
-			++st.format;
-			if (!(convert_c(&st) || convert_s(&st) || convert_pct(&st)
-					|| convert_diu(&st) || convert_p(&st) || convert_xX(&st)))
+			pd.s++;
+			if (!format_parser(&pd))
 				return (-1);
-			++st.format;
 		}
-		while (*st.format && *st.format != '%')
-			st.len += write(1, st.format++, 1);
+		else
+			pd.len += write(1, pd.s++, sizeof(*pd.s));
 	}
-	va_end(st.ap);
-	return (st.len);
+	va_end(pd.args);
+	return (pd.len);
+}
+
+int	main(void)
+{
+	int	i;
+
+	i = ft_printf("Hello\n");
+	printf("%d\n", i);
 }

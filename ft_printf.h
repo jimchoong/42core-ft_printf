@@ -1,5 +1,5 @@
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -8,10 +8,10 @@
 typedef struct s_format
 {
 	const char	*s;
-	size_t	len;
-	va_list	args;
+	size_t		len;
+	va_list		args;
 }	t_format;
 
-int	ft_printf(const char *, ...)
+int	ft_printf(const char *s, ...);
 
 #endif
