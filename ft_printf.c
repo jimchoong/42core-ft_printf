@@ -22,6 +22,7 @@ int	write_char(t_format *pd)
 
 	c = va_arg(pd->args, int) % 256;
 	pd->len += write(1, &c, 1);
+	pd->s++;
 	return (1);
 }
 
@@ -63,6 +64,8 @@ int	main(void)
 {
 	int	i;
 
-	i = ft_printf("Hello\n");
+	i = ft_printf("Hello %c %c\n", 'A','c');
+	printf("%d\n", i);
+	i = printf("Hello %c %c\n", 'A','c');
 	printf("%d\n", i);
 }
