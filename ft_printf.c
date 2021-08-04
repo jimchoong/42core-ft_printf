@@ -42,6 +42,40 @@ int	write_string(t_format *pd)
 	return (1);
 }
 
+int	put_base(unsigned long num, unsigned int base, const char *base_chars)
+{
+	int	i;
+
+	i = 1;
+	if (num >= base)
+		i += put_base(num / base, base, base_chars);
+	write(1, &base_chars[num % base], 1);
+	return (i);
+}
+
+int	write_num(t_format *pd)
+{
+	long	i;
+
+	if (*pd->s == 'u')
+		i = va_arg(pd->args, unsigned int);
+	if (*pd->s == 'i' || *pd->s == 'd')
+		i = va_arg(pd->args, int);
+	if (i < 0)
+	{
+		pd->len += write(1, "-", 1);
+		i *= -1;
+	}
+	pd->len += put_base(i, 10, "0123456789");
+	pd->s++;
+	return (1);
+}
+
+int	write_hex(t_format *pd)
+{
+	
+}
+
 /*
 *	parser: parses format string into diff specifying fns for formatting
 *	params: 1. string from original printf str 2. arg from printf arg
@@ -50,12 +84,14 @@ int	write_string(t_format *pd)
 int	format_parser(t_format *pd)
 {
 	//printf("%c",*pd->s);
-	if (*pd->s == '%'|| *pd->s == 'c')
+	if (*pd->s == '%' || *pd->s == 'c')
 		return (write_char(pd));
 	if (*pd->s == 's')
 		return (write_string(pd));
-	if (*pd->s == 'd' || *pd->s == 'i')
+	if (*pd->s == 'd' || *pd->s == 'i' || *pd->s == 'u')
 		return (write_num(pd));
+	if (*pd->s == 'x' || *pd->s == 'X')
+		return (write_hex(pd));
 	return (0);
 }
 
@@ -105,7 +141,11 @@ ft_printf("This is %%\n");
 printf("This is %%\n");
 
 Numbers d/i
+ft_printf("This is %d\n", 21474)
+printf("This is %d\n", 21474)
 
+hex
+ft_printf("This is %x\n", )
 
 Strings
 NULL arg
@@ -116,8 +156,9 @@ int	main(void)
 {
 	int	i;
 
-	i = ft_printf("This is %s\n", "");
+	//i = ft_printf("This is %d %i\n", 21474, 6789);
+	//printf("%d\n", i);
+	i = printf("This is %X\n", '\xFF');
 	printf("%d\n", i);
-	i = printf("This is %s\n", "");
-	printf("%d\n", i);
+
 }
