@@ -22,7 +22,7 @@ static int	format_parser(t_format *pd)
 }
 
 /*
-*	ft_printf:	variadic fn that prints a string, taking in a variable number of different format type
+*	ft_printf:	variadic fn that prints a string, taking in n number of arg
 *	params:		string s, and variable number of arguments
 *	return:		if success, number of bytes printed
 *				if error, return -1

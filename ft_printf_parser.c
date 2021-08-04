@@ -59,7 +59,8 @@ int	write_num(t_format *pd)
 }
 
 /*	write_address:	print out hex
-*	params:			takes in t_format, uses va_arg in struct to get unsigned int for hex conversion
+*	params:	takes in t_format, 
+*			uses va_arg in struct to get unsigned int for hex conversion
 *	return:			if success, return 1
 *					if error, return 0
 */
@@ -77,8 +78,9 @@ int	write_hex(t_format *pd)
 }
 
 /*	write_address:	print out pointer address
-*	params:			takes in t_format, uses va_arg in struct to get pointer address from arg
-*	return:			if success, return 1
+*	params:	takes in t_format, 
+*			uses va_arg in struct to get pointer address from arg
+*	return:	if success, return 1
 *					if error, return 0
 */
 int	write_address(t_format *pd)
