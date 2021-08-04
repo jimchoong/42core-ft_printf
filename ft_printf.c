@@ -73,7 +73,15 @@ int	write_num(t_format *pd)
 
 int	write_hex(t_format *pd)
 {
-	
+	unsigned long	i;
+
+	i = va_arg(pd->args, unsigned int);
+	if (*pd->s == 'x')
+		pd->len += put_base(i, 16, "0123456789abcdef");
+	else
+		pd->len += put_base(i, 16, "0123456789ABCDEF");
+	pd->s++;
+	return (1);
 }
 
 /*
@@ -92,6 +100,8 @@ int	format_parser(t_format *pd)
 		return (write_num(pd));
 	if (*pd->s == 'x' || *pd->s == 'X')
 		return (write_hex(pd));
+	if (*pd->s == 'p')
+		return (write_add(pd));
 	return (0);
 }
 
@@ -145,20 +155,21 @@ ft_printf("This is %d\n", 21474)
 printf("This is %d\n", 21474)
 
 hex
-ft_printf("This is %x\n", )
+ft_printf("This is %x\n", '\xFF')
 
 Strings
 NULL arg
 "" arg
+printf("This is %s\n", "\xae\xae")
 
 */
 int	main(void)
 {
 	int	i;
 
-	//i = ft_printf("This is %d %i\n", 21474, 6789);
-	//printf("%d\n", i);
-	i = printf("This is %X\n", '\xFF');
+	i = ft_printf("This is %x\n", -97);
+	printf("%d\n", i);
+	i = printf("This is %x\n", -97);
 	printf("%d\n", i);
 
 }
