@@ -1,9 +1,10 @@
 #include "ft_printf.h"
 
 /*
-*	parser: parses format string into diff specifying fns for formatting
+*	format_parser: parses format string into diff specifying fns for formatting
 *	params: 1. string from original printf str 2. arg from printf arg
-*	return: len of parsed string, -1 if error
+*	return: if success, len of printed string, 
+*			if error, return -1 
 */
 static int	format_parser(t_format *pd)
 {
@@ -20,6 +21,12 @@ static int	format_parser(t_format *pd)
 	return (0);
 }
 
+/*
+*	ft_printf:	variadic fn that prints a string, taking in a variable number of different format type
+*	params:		string s, and variable number of arguments
+*	return:		if success, number of bytes printed
+*				if error, return -1
+*/
 int	ft_printf(const char *s, ...)
 {
 	t_format	pd;
