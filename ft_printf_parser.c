@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 
-/*	write_address:	print out pointer address
-*	params:			takes in t_format, uses va_arg in struct to get int from arg
+/*	write_address:	prints character
+*	params:			takes in t_format, uses va_arg in struct to get int from arg		
 *	return:			if success, return 1
 *					if error, return 0
 */
@@ -18,7 +18,7 @@ int	write_char(t_format *pd)
 	return (1);
 }
 
-/*	write_address:	print out pointer address
+/*	write_address:	prints string
 *	params:			takes in t_format, uses va_arg in struct to get string from arg
 *	return:			if success, return 1
 *					if error, return 0
@@ -35,7 +35,7 @@ int	write_string(t_format *pd)
 	return (1);
 }
 
-/*	write_address:	print out pointer address
+/*	write_address:	prints number in decimals representation
 *	params:			takes in t_format, uses va_arg in struct to get int from arg
 *	return:			if success, return 1
 *					if error, return 0
@@ -58,7 +58,7 @@ int	write_num(t_format *pd)
 	return (1);
 }
 
-/*	write_address:	print out hex
+/*	write_address:	prints number in hex representation
 *	params:	takes in t_format, 
 *			uses va_arg in struct to get unsigned int for hex conversion
 *	return:			if success, return 1
@@ -77,7 +77,7 @@ int	write_hex(t_format *pd)
 	return (1);
 }
 
-/*	write_address:	print out pointer address
+/*	write_address:	prints pointer address
 *	params:	takes in t_format, 
 *			uses va_arg in struct to get pointer address from arg
 *	return:	if success, return 1
